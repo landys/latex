@@ -1,0 +1,67 @@
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+
+\documentclass[12pt,a4paper,openany]{book}
+\def\version{1.0}
+
+\usepackage[arialtoc, arialtitle]{thuthesis}
+%\usepackage{verbatim}
+\begin{document}
+
+%定义所有的eps文件在 figures 子目录下
+\graphicspath{{figures/}}
+
+% 生成标题
+%\title{课程论文}
+% "~"表示空格
+%\author{王金德~20721156}
+%\date{2008-01-06}
+%\maketitle
+
+% 生成封面，摘要
+\input{data/cover}
+\makecover
+
+%目录
+\tableofcontents
+
+% 对照表
+% \include{data/denotation}
+
+\mainmatter
+\defaultfont
+\include{data/chap01} % 引言
+\include{data/chap02} % 嵌入式实时操作系统内存管理技术
+%\include{data/chap03} %
+%\include{data/chap04} %
+
+
+%%% 结论
+\include{data/conclusion} % 总结与展望
+
+
+%%% 参考文献
+\bibliographystyle{thubib}
+\bibliography{reference/refs}
+
+
+%%% 致谢
+%\include{data/acknowledgements}
+
+
+%%% 附录
+% \begin{appendix}
+%    \renewcommand{\chaptername}{附录\Alph{chapter}}
+%    \input{appendix/chap01a}
+% \end{appendix}
+
+
+%%% 发表的文章列表
+%\include{data/publications}
+
+%%% 生成书脊
+%\shuji[清华大学硕士~~~\LaTeX 论文模板~~~v\version 样例]
+\end{document}

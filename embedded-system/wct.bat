@@ -1,0 +1,1 @@
+charcnt paper.dvi

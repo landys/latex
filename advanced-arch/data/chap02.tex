@@ -1,0 +1,199 @@
+\chapter{多核技术趋势和挑战}
+\label{cha:multicore}
+
+\section{多核技术与传统处理器技术}
+\label{sec:multiVS}
+
+在多核成为主流的背景下，传统的处理器技术仍然有着一定的发展，但其面临的问题也是巨大的，主要包括如下方面\cite{Parkhurst06}：
+\begin{compactitem}
+\item 处理器时钟频率提高是处理器性能提高的一个重要方向。但是其指数级的增长已经因为功耗和设计复杂度，
+在4GHz左右处于平滑状态。
+\item 功率密度随着处理器特性增长也曾经呈现指数级增长。但是由于功率和密度在物理上都无法无限制地增长了，
+所以功率消耗和功率密度的增长目前都已经趋于平滑。
+\item
+电压缩放技术曾被提出来，缓解功耗问题。该技术最终未取得应用，因为电压域值的改变需要更好的泄漏控制和全局静态能源消散，
+这本身带来的问题甚至超过了其带来的好处。
+\item
+设计复杂度的增长已经接近了设计者可以承受的极限。摩尔定律的驱动力已无法给设计者带来足够的信心。
+\item
+在一些特殊的应用领域，如低端的或嵌入式领域，虽然有着微结构、应用的特殊性所带来的好处，使用它可以简化甚至忽略处理器设计的
+某些方面，但是其特有方面的发展也有着很大的限制。
+\end{compactitem}
+
+多核技术正是在这样的条件下，给处理器的发展注入了新了活力。
+从多核的自身的特点来看，它与前面提到的处理器技术的各个方向相比，主要有如下三大优势：
+\begin{compactitem}
+\item
+并行性；
+\item
+自身资源固有的冗余，能够产生极其产生灵活的架构；
+\item
+与分布式体系架构相比，多核技术由于把所有的核集中在一块芯片上，所以能允许低延迟的交互；
+\end{compactitem}
+
+另外，多核技术发展的市场驱动力也是强大的。高性能计算及到普通计算对于处理器性能高速增长的需求是巨大的，同时，由于其他处理
+器技术所面临的难以克服的问题，多核技术成为了处理器发展的希望和潮流。
+
+\section{多核技术介绍}
+\label{sec:multiTrend}
+
+多核技术的发展和应用日新月异，但从根本上来说，多核技术主要有如下四种形式\cite{Parkhurst06}：
+\begin{compactitem}
+\item
+异类的核（dedicated heterogeneous
+cores）综合在一起，提供多样化的应用。这种形式中，不同的核针对不同的方向，其整体构成高性能的复杂应用。
+\item
+大量同类的互助核（remedial homogeneous
+cores）分担所有的计算。这种形式一般用于低端或嵌入式应用，因为这些应用往往每个核的能力是极其有限的。
+\item
+少量复杂的同类核（complex homogeneous
+cores）结合在一起，每个核独立地完成或者提供几个辅助应用以计算资源。
+\item
+当然，前面三种方式可以不同程度地结合在一起，构成复杂的应用，而这正是第四种形式。
+\end{compactitem}
+
+不同的应用采用不同的多核形式，而一般在其中做出选择的标准是：
+\begin{compactitem}
+\item
+提供最大的吞吐量；
+\item
+满足DFM/DFY要求；
+\item
+满足热量和能耗封装；
+\item
+满足成本要求；
+\item
+可验证性；
+\end{compactitem}
+
+这些并不意味着多核技术是一个相对孤立的技术，它与其他相关技术也有着密切的联系，比如
+多核上的应用软件设计、HW/SW联合设计、IP核的重用等。
+多核技术也带来了新的设计复杂性，包括核间通讯和缓存访问策略等。
+
+\section{多核技术的挑战}
+\label{sec:multiChallenge}
+
+多核技术给处理器设计带来巨大的发展的同时，也给设计者带来了重多新的挑战\cite{Parkhurst06}：
+\begin{compactitem}
+\item
+非核心或粘合逻辑的设计；
+\item
+保持Cache的一致性，管理Cache在命中和失配时的访问；
+\item
+重用技术；
+\item
+后期硅制品(post silicon)功能和性能验证的复杂度增加，测试难度增加；
+\item
+随着多核中核的指数级增长, 核软件在多核领域起了更重要的作用；
+\item
+微架构(micro-architects) 增加了错误率，这就要求更强的自我检查，
+错误检测等方面的设计；
+\item
+3D硅方法带来新的优势和挑战；
+\item
+核间通讯机制的挑战，多种核间交互策略和协议的选择；
+\end{compactitem}
+
+并且，多核技术在某些方面，也存在和传统的处理器技术同样的问题，比如多核要求测试、诊断和自我修复必须考虑在整体设计之内，
+增大了设计的复杂度；多核技术增加的处理特性重新带来功耗和功率密度指数增长的危险等。
+
+\subsection{核间通讯机制}
+\label{sub:multiComm}
+
+核间通讯机制多核体系架构中起着越来越重要的作用，这也正是实现多核的一个重要挑战。
+
+核间通讯主要可通过核间互连和协议实现。不同的核间通讯微架构导致不同操作的延迟也有所不同，
+这样需要为重要的功能选择一个更短延迟的架构。而这种选择的衡量标准本身也是一个挑战。
+
+多核相对于单核或多处理器的分布式架构来说，其核间互连通讯机制的设计是一个重要内容。这种通讯
+机制影响着多核的各个方面，而本节也正是以这个为切入点，讨论多核的核间通讯机制。
+
+芯片内多核互连结构与其他如芯片间、多芯片模型、板级结点等互连结构不同的原因在于：
+\begin{compactitem}
+\item
+对于芯片内多核互连，功率、区域、延迟和带宽都是第一要素。
+\item
+在设计中, 核、缓存和互连结构更高层次地结合在一起，互相影响，互相制约。
+\end{compactitem}
+
+芯片内互连体系结构类型主要包括交叉开关、点对点连接、总线架构、
+以及这些技术不同程度的结合。而事实上，这几种结构常常针对的是互连结构的不同方面，这也是它们常常能
+有机结合在一起，共同发挥作用的原因。目前已经实现的核间互连结构有Piranha的芯片内开关（Intra-Chip
+Switch）\cite{Barroso00}，Hydra的交叉开关（Crossbar）。这两种的二级Cache是完全共享的。另外IBM
+Power4实现了一种和交互开关类似的结构：CIU（Core-Interface
+Unit）\cite{Kumar05}。
+
+针对互连体系结构的三种基本类型，论文\cite{Kumar05}给出了比较详细的描述，并提出了三种相应的互连机制。
+\begin{itemize}
+\item
+共享总线结构（Shared Bus
+Fabric，SBF）是一种CMP系统内处理器、缓存、IO和内存之间传输数据的高速连接。
+主要由请求和数据队列、地址总线仲裁、地址总线、监听总线、
+响应总线和双向数据总线构成。
+它支持基于监听的（Snoop-Based）共享内存多核结构。该论文实现了与MESI类似的，
+二级缓存回写的监听写无效协议。所有的总线都是单向的，所有的核都拥有私有的一级和二级缓存，
+而SBF连接二级缓存来保证内存请求和一致性。如图\ref{fig:fbs}。
+\begin{figure}[h]\centering
+  \wuhao
+  \includegraphics[width=0.90\textwidth]{fbs.eps}
+  \caption{一种共享总线结构\cite{Kumar05}}\label{fig:fbs}
+\end{figure}
+\item
+点对点连接（Point-to-Point Link，P2P
+Link）是用来连接不同的SBFs，支持它们之间互相的通讯。
+它能够双向传输所有种类的事务（请求、响应、数据），
+并且P2P连接的终点是多重队列。如图\ref{fig:p2p}。
+\begin{figure}[h]\centering
+  \wuhao
+  \includegraphics[width=0.70\textwidth]{p2p.eps}
+  \caption{点对点连接\cite{Kumar05}}\label{fig:p2p}
+\end{figure}
+\item
+交叉开关互连系统（Crossbar Interconnection
+System）由交叉开关连接和交叉开关接口逻辑组成。它常用来完成多个核共享二级缓存时，核间的通讯。
+一个交叉开关通常由一条地址组和两条数据线组成。如图\ref{fig:crossbar}。
+\begin{figure}[h]\centering
+  \wuhao
+  \includegraphics[width=0.80\textwidth]{crossbar.eps}
+  \caption{典型的交叉开关\cite{Kumar05}}\label{fig:crossbar}
+\end{figure}
+\end{itemize}
+
+在设计核间通讯机制时，除了考虑性能之外，常常还需考虑多种开销，一般包括配线区域和逻辑区域开销、功率开销和延迟开销等。
+
+总之，在多核中，核内互连体系结构和核体系结构、缓存体系结构紧密地结合在一起，必须从全局的观点来看。
+所以多核设计者要想取得好的设计, 必须采用三者的联合设计。
+
+\subsection{多核自动化设计}
+\label{sub:multiAuto}
+
+自动化设计是解决设计复杂度问题的一个有效途径。完全实现自动化设计往往是一件很困难甚至于不可能的事情，
+而部分实现自动化设计也能给设计者带来巨大的好处。
+
+在多核领域，自动化设计同样面临巨大的挑战。而从实现来看，主要可以从Post-RTL和Pre-RTL两个阶段入手\cite{Parkhurst06}。
+
+Post-RTL阶段的实现主要面临两大挑战：
+\begin{compactitem}
+\item
+“时间闭包（Time Closure）”向“设计闭包（Design
+Closure）”的转化要求必须对处理器的功率、性能、成本和可靠性同时进行优化设计，而不能互相脱离。
+\item
+设计最优化（Design Optimization）和可制造性（Manufacturability）必须综合对待。
+\end{compactitem}
+
+Post-RTL阶段的实现方式主要体现在重用上，包括设计重用、验证重用、布局重用和测试重用。
+
+Pre-RTL阶段主要解决在不同的设计中选择权衡的问题。这主要从两方面考虑：
+
+\begin{compactitem}
+\item
+和Post-RTL一样，从重用性考虑解决。
+\item
+使用参数模型、高层规范模型或系统建模语言来解决问题。具体需考虑的方因素有功率模型、物理模型、热区、早期综合分析系统、
+优化（主要是多变量优化）、交付实现、可靠性、三维封装等。如图\ref{fig:autodesign}。
+\end{compactitem}
+\begin{figure}[h]\centering
+  \wuhao
+  \includegraphics[width=0.70\textwidth]{autodesign.eps}
+  \caption{Pre-RTL综合分析\cite{Parkhurst06}}\label{fig:autodesign}
+\end{figure}
